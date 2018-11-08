@@ -1,11 +1,45 @@
 {
   "name": "react-graphql-auth-boilerplate",
   "version": "0.1.0",
+  "description": "Starter boilerplate for a react project using graphql and passport auth",
   "private": true,
+  "license": "ISC",
+  "author": "github.com/nmclear",
+  "repository": {
+    "type": "git",
+    "url": "github.com/nmclear/react-graphql-auth-boilerplate"
+  },
   "dependencies": {
+    "apollo-client": "^2.4.5",
+    "axios": "^0.18.0",
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.1",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "express-session": "^1.15.6",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
+    "if-env": "^1.0.4",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.3.10",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^16.6.1",
+    "react-apollo": "^2.2.4",
     "react-dom": "^16.6.1",
+    "react-router": "^4.3.1",
     "react-scripts": "2.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.0",
+    "flow-bin": "^0.85.0",
+    "prettier-eslint": "^8.8.2"
   },
   "scripts": {
     "start": "react-scripts start",
