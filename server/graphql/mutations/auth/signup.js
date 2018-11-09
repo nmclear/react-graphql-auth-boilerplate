@@ -3,7 +3,7 @@ const graphql = require('graphql');
 const { GraphQLString } = graphql;
 
 const UserType = require('./../../types/user_type');
-const AuthService = require('./../../../services/auth.js');
+const AuthService = require('./../../../services/auth');
 
 module.exports = {
   type: UserType,

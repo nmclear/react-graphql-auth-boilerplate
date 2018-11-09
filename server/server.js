@@ -1,27 +1,40 @@
 const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
 const expressGraphQL = require('express-graphql');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpack = require('webpack');
-const passportConfig = require('./services/auth/index');
+require('dotenv').config();
+// const webpackMiddleware = require('webpack-dev-middleware');
+// const webpack = require('webpack');
+const passportConfig = require('./services/auth/');
 const models = require('./db/models');
 const schema = require('./graphql/schema');
 
-const PORT = process.env.PORT || 3001;
 // Create Express App
 const app = express();
 
 // Unique mLab URI
-const MONGO_URI = '';
+const MONGO_URI = `${process.env.MONGO_URI}`;
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 
 // Replace Mongoose's deprecated promise library with ES6 Promise
-mongoose.Promise = global.Promise;
+
+// mongoose.Promise = global.Promise;
 
 // MongoDB CONNECTION
-mongoose.connect(MONGO_URI);
+mongoose.connect(
+  MONGO_URI,
+  { useNewUrlParser: true },
+);
 mongoose.connection
   .once('open', () => console.log('Connected to MongoLab instance.'))
   .on('error', error => console.log('Error connecting to MongoLab:', error));
@@ -55,12 +68,12 @@ app.use(
 );
 
 // Webpack middleware to respond with webpack output from root route requests.
-const webpackConfig = require('../webpack.config.js');
+// const webpackConfig = require('../webpack.config.js');
 
-app.use(webpackMiddleware(webpack(webpackConfig)));
+// app.use(webpackMiddleware(webpack(webpackConfig)));
 
-// module.exports = app;
-
-app.listen(PORT, () => {
-  console.log(`🌎 ==> Server now on port ${PORT}!`);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
+
+module.exports = app;
