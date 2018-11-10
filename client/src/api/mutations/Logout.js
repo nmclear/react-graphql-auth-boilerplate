@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  {
-    currentUser {
+  mutation {
+    logout {
       id
       email
     }
