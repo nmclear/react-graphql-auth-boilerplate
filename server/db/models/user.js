@@ -5,8 +5,8 @@ const { Schema } = mongoose;
 
 // UserSchema for Login
 const UserSchema = new Schema({
-  email: String,
-  password: String,
+  email: { type: String, required: true },
+  password: { type: String, required: true },
 });
 
 // Middleware for before save to hash/salt password

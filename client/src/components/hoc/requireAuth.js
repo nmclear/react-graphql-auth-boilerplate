@@ -14,7 +14,12 @@ export default WrappedComponent => {
     }
 
     render() {
-      return <WrappedComponent {...this.props} />;
+      const { loading, currentUser } = this.props.data;
+      if (!loading && currentUser) {
+        return <WrappedComponent {...this.props} />;
+      }
+
+      return <div />;
     }
   }
 
