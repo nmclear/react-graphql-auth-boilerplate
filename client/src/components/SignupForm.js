@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 
@@ -6,7 +7,17 @@ import AuthForm from './AuthForm';
 import SignupMutation from './../api/mutations/Signup';
 import CurrentUserQuery from './../api/queries/CurrentUser';
 
-class SignupForm extends Component {
+type Props = {
+  mutate: Function,
+  data: Object,
+  history: Function
+};
+
+type State = {
+  errors: Array<string>
+};
+
+class SignupForm extends Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -27,7 +38,9 @@ class SignupForm extends Component {
       variables: { email, password },
       refetchQueries: [{ query: CurrentUserQuery }]
     }).catch(res => {
-      const errors = res.graphQLErrors.map(error => error.message);
+      const errors: Array<string> = res.graphQLErrors.map(
+        error => error.message
+      );
       this.setState({ errors });
     });
   }

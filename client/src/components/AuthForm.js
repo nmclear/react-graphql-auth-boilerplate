@@ -1,14 +1,26 @@
-import React, { Component } from 'react';
-import * as React from 'react';
+// @flow
 
-class AuthForm extends Component {
-  constructor(props) {
+import React, { Component } from 'react';
+// import * as React from 'react';
+
+type Props = {
+  errors: Array<string>,
+  onSubmit: Function
+};
+
+type State = {
+  email: string,
+  password: string
+};
+
+class AuthForm extends Component<Props, State> {
+  constructor(props: Object) {
     super(props);
 
     this.state = { email: '', password: '' };
   }
 
-  onSubmit(event) {
+  onSubmit(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
     const { email, password } = this.state;
     this.props.onSubmit({ email, password });

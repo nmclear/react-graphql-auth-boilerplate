@@ -6,14 +6,24 @@ import AuthForm from './AuthForm';
 import LoginMutation from './../api/mutations/Login';
 import CurrentUserQuery from './../api/queries/CurrentUser';
 
-class LoginForm extends Component {
+type Props = {
+  mutate: Function,
+  data: Object,
+  history: Function
+};
+
+type State = {
+  errors: Array<string>
+};
+
+class LoginForm extends Component<Props, State> {
   constructor(props) {
     super(props);
 
     this.state = { errors: [] };
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Object) {
     const { data, history } = this.props;
     if (!prevProps.data.currentUser && data.currentUser) {
       history.push('/dashboard');
@@ -27,7 +37,9 @@ class LoginForm extends Component {
       variables: { email, password },
       refetchQueries: [{ query: CurrentUserQuery }]
     }).catch(res => {
-      const errors = res.graphQLErrors.map(error => error.message);
+      const errors: Array<string> = res.graphQLErrors.map(
+        error => error.message
+      );
       this.setState({ errors });
     });
   }

@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
@@ -5,7 +6,14 @@ import { Link } from 'react-router-dom';
 import LogoutMutation from './../api/mutations/Logout';
 import CurrentUserQuery from './../api/queries/CurrentUser';
 
-class NavHeader extends Component {
+type Props = {
+  mutate: Function,
+  data: Object
+};
+
+type State = {};
+
+class NavHeader extends Component<Props, State> {
   onLogoutClick() {
     const { mutate } = this.props;
     mutate({
@@ -15,7 +23,10 @@ class NavHeader extends Component {
 
   renderButtons() {
     const { data } = this.props;
-    const { loading, currentUser } = data;
+    const {
+      loading,
+      currentUser
+    }: { loading: boolean, currentUser: Object } = data;
 
     if (loading) {
       return <div />;
