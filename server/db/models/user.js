@@ -9,7 +9,9 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
 });
 
-// Middleware for before save to hash/salt password
+// Middleware for before save to hash/salt password.
+// Before saving, salt and hash password so it cannot be stored as plain text.
+// Pre middleware functions are executed one after another, when each middleware calls next.
 UserSchema.pre('save', function save(next) {
   const user = this;
   if (!user.isModified('password')) {
@@ -20,8 +22,8 @@ UserSchema.pre('save', function save(next) {
       return next(err);
     }
     return bcrypt.hash(user.password, salt, null, (error, hash) => {
-      if (error) {
-        return next(error);
+      if (err) {
+        return next(err);
       }
       user.password = hash;
       return next();

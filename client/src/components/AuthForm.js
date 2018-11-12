@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as React from 'react';
 
 class AuthForm extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class AuthForm extends Component {
       <form onSubmit={this.onSubmit.bind(this)}>
         <div>
           <input
+            name="auth-email"
             value={email}
             placeholder="Email"
             onChange={e => this.setState({ email: e.target.value })}
@@ -32,6 +34,7 @@ class AuthForm extends Component {
         </div>
         <div>
           <input
+            name="auth-password"
             value={password}
             placeholder="Password"
             type="password"
@@ -39,7 +42,7 @@ class AuthForm extends Component {
           />
         </div>
         <div>{this.renderErrors()}</div>
-        <button>Submit</button>
+        <button type="submit">Submit</button>
       </form>
     );
   }
